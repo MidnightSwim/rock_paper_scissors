@@ -1,3 +1,40 @@
+let humanScore = 0;
+let computerScore = 0;
+
+const body = document.querySelector('body');
+const buttons = document.querySelectorAll('button');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const divPlay = document.createElement("div");
+const divResult = document.createElement("div");
+const divWinner = document.createElement("div");
+const pPlayer = document.createElement("p");
+const pComputer = document.createElement("p");
+const pPlayerScore = document.createElement("p");
+const pComputerScore = document.createElement("p");
+const pWinner = document.createElement("p");
+
+body.appendChild(divPlay);
+divPlay.className = "play";
+divPlay.appendChild(pPlayer);
+divPlay.appendChild(pComputer);
+
+body.appendChild(divResult);
+divResult.className = "results";
+divResult.appendChild(pPlayerScore);
+divResult.appendChild(pComputerScore);  
+divResult.appendChild(pWinner); 
+  
+body.append(divWinner);
+divWinner.className = "winner";
+divWinner.appendChild(pWinner);   
+
+
+function getHumanChoice(e) {
+    return e.id;
+}
+
 function getComputerChoice() {
     let value = Math.random();
     if (value <= 0.33) {
@@ -9,26 +46,8 @@ function getComputerChoice() {
     else {
         return "scissors";
     }
-}
-
-function getHumainChoice() {
-    let choice = prompt("Rock, paper or scissors ?");
-
-    if (choice.toLowerCase() === "rock") {
-        return "rock";
-    }
-    if (choice.toLowerCase() === "paper") {
-        return "paper";
-    }
-    if (choice.toLowerCase() === "scissors") {
-        return "scissors";
-    }
-    else {
-        alert("Sorry, you must have mispelled the word");
-        getHumainChoice()
-
-    }
-}
+    
+};
 
 function playRound(humanChoice, computerChoice) {
 
@@ -58,25 +77,45 @@ function playRound(humanChoice, computerChoice) {
             }
         }
     }
-}
+};
 
-let humanScore = 0;
-let computerScore = 0;
+// function playGame() {
+//         const humanChoice = getHumanChoice();
+//         const computerChoice = getComputerChoice();
+//         playRound(humanChoice, computerChoice);
+// };
 
-function playGame() {
+buttons.forEach(button => {
+            button.addEventListener("click", function () {
+                const humanChoice = getHumanChoice(button);
+                const computerChoice = getComputerChoice();
+                console.log(computerChoice);
 
-    let i = 0;
-    while (i < 5) {
-        const humanChoice = getHumainChoice();
-        const computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-        i++;
-        console.log("The score of the player is " + humanScore);
-        console.log("The score of the computer is " + computerScore);
-    }
+                playRound(humanChoice, computerChoice);
+                pPlayer.textContent = "The player chose " + humanChoice;
+                pComputer.textContent = "The computer chose " + computerChoice;
+                pPlayerScore.textContent = "Player Score: " + humanScore;
+                pComputerScore.textContent = "Computer Score: " + computerScore;
 
-}
+                if (humanScore >= 5) {
+                    pWinner.textContent = "The Winner is the player!!!";
+                    pPlayer.remove();
+                    pComputer.remove();
+                    buttons.forEach(button => {
+                        button.disabled = true;
+                    })
+                } else if (computerScore >= 5) {
+                    pWinner.textContent = "The Winner is the computer!!!";
+                    pPlayer.remove();
+                    pComputer.remove();
+                    buttons.forEach(button => {
+                        button.disabled = true;
+                    })
+                }
 
-playGame();
-console.log("Total score for the player:" + humanScore);
-console.log("Total score for the computer:" + computerScore);
+                
+
+            });
+});
+
+

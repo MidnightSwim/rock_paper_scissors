@@ -1,0 +1,39 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display:flex;
+    justify-content: space-evenly;
+    
+}
+
+.play {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.results {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.winner {
+    display:flex;
+    font-size: 48px;
+    align-items: center;
+    justify-content:  center;
+}
+
+
+button {
+    background-color: papayawhip;
+    border-radius: 23%;
+    padding: 25px;
+    margin:16px;
+}
+
